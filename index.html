@@ -307,6 +307,26 @@
     applyLang(currentLang === "ar" ? "en" : "ar");
   }
 </script>
+// تحديد اللغة الافتراضية
+let currentLang = 'ar';
 
+function toggleLanguage() {
+  // تبديل المتغير بين عربي وإنجليزي
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  
+  const langBtn = document.getElementById('lang-btn');
+  
+  // 1. تغيير اتجاه الصفحة بالكامل (من اليمين لليسار أو العكس)
+  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+  
+  // 2. تغيير نص الزر نفسه
+  langBtn.innerText = currentLang === 'ar' ? 'English' : 'عربي';
+  
+  // 3. البحث عن كل العناصر التي تحتوي على ترجمات وتبديل نصوصها
+  const translatableElements = document.querySelectorAll('[data-ar][data-en]');
+  translatableElements.forEach(el => {
+    el.innerText = el.getAttribute(`data-${currentLang}`);
+  });
+}
 </body>
 </html>
